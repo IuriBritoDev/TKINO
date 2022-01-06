@@ -3,6 +3,7 @@ from tkinter import ttk
 from Controller import controleTelas, controleCriaTelas
 
 
+# Tela principal do projeto
 def TelaPrincipal():
     
     # Cria tela principal

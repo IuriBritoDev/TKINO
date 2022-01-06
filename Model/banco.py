@@ -22,6 +22,7 @@ def ComandoBanco(conexao, sql):
     except sqlite3.Error as ex:
         print(ex)
 
+# Cria tabelas no banco
 def CriaTabela(conexao, tabela):
 
     try:

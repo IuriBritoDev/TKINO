@@ -1,5 +1,7 @@
 from tkinter import *
 
+
+# Tela de conexão entre atuadores
 def TelaConexao(tela):
 
     # Declara variaveis

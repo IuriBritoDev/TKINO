@@ -1,5 +1,7 @@
 from tkinter import *
 
+
+# Tela de configurações de Arduino e USP
 def TelaConfigura(tela):
 
     # Cria a tela de configuração

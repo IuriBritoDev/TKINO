@@ -1,5 +1,7 @@
 from tkinter import *
 
+
+# Tela de cadastro de atuadores
 def TelaCadastro(tela):
 
     # Declara variaveis

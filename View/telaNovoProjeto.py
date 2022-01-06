@@ -4,6 +4,7 @@ from Controller import controleBanco
 
 global nomeNovo
 
+# Tela para criar novos projetos
 def TelaNovoProjeto(tela):
 
     # Cria a tela de novo projeto

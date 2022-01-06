@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 
 
+# Tela de relatorios em xlsx
 def TelaRelatorio(tela):
 
     # Cria a tela de relatorios 

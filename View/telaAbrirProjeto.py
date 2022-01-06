@@ -1,6 +1,8 @@
 from tkinter import *
 from Controller import controleBanco
 
+
+# Tela que mostra os projetos existentes
 def TelaAbrirProjeto(tela):
 
     # Cria a tela

@@ -1,6 +1,7 @@
 from tkinter import *
 
 
+# Cria talas padronizadas
 class CriaTela():
 
     def __init__(self,titulo,tamanho,bg):
