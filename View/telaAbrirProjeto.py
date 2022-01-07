@@ -16,20 +16,25 @@ def TelaAbrirProjeto(tela):
 
 
     # Busca projetos existentes no banco
-    #dadosFormat = controleBanco.ControleMostraExistente()
+    dadosFormat = controleBanco.ControleMostraExistente()
 
     # Cria a caixa de prijetos existentes
     caixaLista = Listbox(telaAbrir)
     caixaLista.place(x=25,y=25,width=245,height=150)
     
     # Preenche a caixa com os projetos existentes
-    #for item in dadosFormat:
-    #    caixaLista.insert(END,item)
+    for item in dadosFormat:
+        caixaLista.insert(END,item)
 
     barraDeRoalgem = Scrollbar(telaAbrir,orient='vertical',command=caixaLista.yview)
     barraDeRoalgem.place(x=260,y=25,width=15,height=150)
     caixaLista.configure(yscrollcommand=barraDeRoalgem.set)
 
+    def AbrirProjeto():
+        #print(caixaLista.get(ACTIVE))
+        controleBanco.ControleAbreProjeto(caixaLista.get(ACTIVE))
+        telaAbrir.destroy()
+
     # Botão abrir projeto
-    btnAbrir = Button(telaAbrir,text='ABRIR',command=lambda:controleBanco.ControleAbreProjeto(caixaLista.get(ACTIVE)),foreground='white',bg='black')
+    btnAbrir = Button(telaAbrir,text='ABRIR',command=AbrirProjeto,foreground='white',bg='black')
     btnAbrir.place(x=232,y=200)

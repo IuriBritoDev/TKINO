@@ -7,7 +7,6 @@ def ConexaoBanco(conexao):
     banco = None
     try:
         banco = sqlite3.connect(conexao)
-        print('conectou')
     except sqlite3.Error as ex:
         print(ex)
     return banco
@@ -33,11 +32,11 @@ def CriaTabela(conexao, tabela):
         print(ex)
 
 # Escreve na tabela
-def EscreveNaTabela(conexao, nomeTabela, nomeColuna, valores):
+def EscreveNaTabela(conexao, nomeTabela, nomeColuna, valores, interogacao):
     
     try:
         c=conexao.cursor()
-        c.executemany("INSERT INTO "+nomeTabela+" ("+nomeColuna+") VALUES(?)",valores)
+        c.executemany("INSERT INTO "+nomeTabela+" ("+nomeColuna+") VALUES("+interogacao+")",valores)
         conexao.commit()
     except sqlite3.Error as ex:
         print(ex)
@@ -65,9 +64,8 @@ def AlteraTabela(conexao, nomeTabela,nomeColuna, tipo):
     except sqlite3.Error as ex:
         print(ex)
 
-
 # cria a conexão com o banco
-#cursor = ConexaoBanco('bancos.db')
+cursor = ConexaoBanco('bancos.db')
 
 # fecha o banco
-#cursor.close() 
+cursor.close() 
