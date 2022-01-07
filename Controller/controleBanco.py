@@ -92,6 +92,12 @@ def ControleCriaTabelasConex(nomeProjeto, con):
 
     return projetoAtual
 
+# pega o ultimo projeto criado
+def ControlePegaProjetoAtual():
+
+    global projetoAtual
+    return projetoAtual
+
 # Ler os dados do banco
 def ControleLerDados(coluna,nTabela):
 
@@ -137,3 +143,14 @@ def ControleConfControlador(valorControlador):
     con = banco.ConexaoBanco(projetoAtual)
     coluna = ','.join(colunaNomeVal)
     banco.EscreveNaTabela(con, tabelas[2], coluna, valorControlador, interog)
+
+# Cria controladores 
+def ControleCriaConexao(valorAtuador):
+    
+    global projetoAtual
+    interog = '?,?'
+    
+    con = banco.ConexaoBanco(projetoAtual)
+    coluna = 'sensor,'+'controlador'
+    
+    banco.EscreveNaTabela(con, tabelas[4], coluna, valorAtuador, interog)

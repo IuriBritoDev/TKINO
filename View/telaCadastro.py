@@ -1,4 +1,5 @@
 from tkinter import *
+from Controller import controleBanco
 
 
 # Tela de cadastro de atuadores
@@ -25,8 +26,8 @@ def TelaCadastro(tela):
     nome = Label(telaCadastro,text='NOME :',foreground='black',bg='gray',anchor=W,)
     nome.place(x=10,y=20)
 
-    nomeVar = Entry(telaCadastro)
-    nomeVar.place(x=60,y=20)
+    nomeAtuador = Entry(telaCadastro)
+    nomeAtuador.place(x=60,y=20)
 
     # Sensor ou controlador
     txt = Label(telaCadastro,text='TIPO :',foreground='black',bg='gray',anchor=W,)
@@ -46,6 +47,17 @@ def TelaCadastro(tela):
     r2 = Radiobutton(telaCadastro,text = 'ANALOGICO',variable = val2,value = 2)
     r2.place(x=160,y=120,width=110)
 
+    def CriaAtuador():
+        valoresAtuador = []
+        nome = nomeAtuador.get()
+        AtuaConex = val1.get()
+        AtuaTipo = val2.get()
+        
+        valoresAtuador = [(str(nome),str(AtuaConex),str(AtuaTipo),)]
+        
+        controleBanco.ControleCriaAtuador(valoresAtuador)
+        telaCadastro.destroy()
+
     # Botão cria atuador
-    btn = Button(telaCadastro,text='CRIAR',foreground='white',bg='black',command = '')
+    btn = Button(telaCadastro,text='CRIAR',foreground='white',bg='black',command = CriaAtuador)
     btn.place(x=215,y=180)

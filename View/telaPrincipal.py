@@ -33,14 +33,16 @@ def TelaPrincipal():
     
     abas.place(relx=0,rely=0.1,relwidth=1,relheight=1)
 
-    # Mostra os sensores
-    #controleTelas.AbreFrameSensores(aba1)
-
-    # Mostra os controladores
-    #controleTelas.AbreFrameControladores(aba2)
-
-    # Mostra as conexões
-    #controleTelas.AbreFrameConexao(aba3)
+    def Reload():
+    
+        # Mostra os sensores
+        controleTelas.AbreFrameSensores(aba1)
+        # Mostra os controladores
+        controleTelas.AbreFrameControladores(aba2)
+        # Mostra as conexões
+        controleTelas.AbreFrameConexao(aba3)
+        
+        root.after(4000,Reload)
 
     # Cria a barra de menus
     menubar = Menu(root)
@@ -64,4 +66,5 @@ def TelaPrincipal():
     
     root.config(menu=menubar)
 
+    Reload()
     root.mainloop()

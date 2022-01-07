@@ -1,4 +1,5 @@
 from tkinter import *
+from Controller import controleBanco
 
 
 # Tela de conexão entre atuadores
@@ -39,6 +40,17 @@ def TelaConexao(tela):
     r2 = Radiobutton(telaConec,text = 'ANALOGICO',variable = val2,value = 2)
     r2.place(x=140,y=120,width=110)
 
+    def CriaAtuador():
+        valoresConex = []
+        
+        sensorConex = val1.get()
+        controlConex = val2.get()
+        
+        valoresConex = [(str(sensorConex),str(controlConex),)]
+       
+        controleBanco.ControleCriaConexao(valoresConex)
+        telaConec.destroy()
+
     # Botão cria conexão
-    btn = Button(telaConec,text='CONECTAR',foreground='white',bg='black',command = '')
+    btn = Button(telaConec,text='CONECTAR',foreground='white',bg='black',command = CriaAtuador)
     btn.place(x=180,y=170)
