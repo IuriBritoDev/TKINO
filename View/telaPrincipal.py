@@ -38,9 +38,9 @@ def TelaPrincipal():
         # Mostra os sensores
         controleTelas.AbreFrameSensores(aba1)
         # Mostra os controladores
-        controleTelas.AbreFrameControladores(aba2)
+        controleTelas.AbreFrameControladores(aba2,root)
         # Mostra as conexões
-        controleTelas.AbreFrameConexao(aba3)
+        controleTelas.AbreFrameConexao(aba3,root)
         
         root.after(4000,Reload)
 

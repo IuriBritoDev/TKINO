@@ -1,5 +1,6 @@
 from tkinter import *
-from Controller import controleBanco
+#from Controller import controleBanco
+from Controller import controleTelas
 
 
 # Tela de conexão entre atuadores
@@ -48,9 +49,29 @@ def TelaConexao(tela):
         
         valoresConex = [(str(sensorConex),str(controlConex),)]
        
-        controleBanco.ControleCriaConexao(valoresConex)
-        telaConec.destroy()
+        #controleBanco.ControleCriaConexao(valoresConex)
+        
 
+        # Digital 
+        if (sensorConex == 1):
+
+            # Digital 
+            if(controlConex == 1):
+                controleTelas.AbreTelaConDigDig(tela)
+
+            # Analogica
+            if(controlConex == 2):
+                controleTelas.AbreTelaConDigAn(tela)
+        # Analogico
+        if (sensorConex == 2):
+
+            # Digital 
+            if(controlConex == 1):
+                controleTelas.AbreTelaConAnDig(tela)
+            # Analogica
+            if(controlConex == 2):
+                controleTelas.AbreTelaConAnAn(tela)
+        telaConec.destroy()
     # Botão cria conexão
     btn = Button(telaConec,text='CONECTAR',foreground='white',bg='black',command = CriaAtuador)
     btn.place(x=180,y=170)

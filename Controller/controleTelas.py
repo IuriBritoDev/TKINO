@@ -1,5 +1,6 @@
-from View import telaRelatorio, telaNovoProjeto, telaAbrirProjeto, telaCadastro, telaConfigura, telaConexao
+from View import telaRelatorio, telaNovoProjeto, telaAbrirProjeto, telaCadastro, telaConfigura, telaConexao, telaEditarControle
 from View.Painel import painelSensores, painelControladores, painelConexao
+from View.Conexao import telaConAnalogAnalog, telaConAnalogDigit, telaConDigitAnalog, telaConDigitDigit 
 
 
 # Abre as telas da aba de seleção
@@ -27,15 +28,37 @@ def AbreTelaConexao(tela):
 
     telaConexao.TelaConexao(tela) 
 
+# Abre telas de conexões de atuadores
+def AbreTelaConAnAn(tela):
+
+    telaConAnalogAnalog.TelaConAnalogAnalog(tela) 
+
+def AbreTelaConAnDig(tela):
+
+    telaConAnalogDigit.TelaConAnalogDig(tela)
+
+def AbreTelaConDigAn(tela):
+
+    telaConDigitAnalog.TelaConDigAnalog(tela)
+
+def AbreTelaConDigDig(tela):
+
+    telaConDigitDigit.TelaConDigDig(tela)
+
 # Abre os frames das abas
 def AbreFrameSensores(frame):
     
     painelSensores.PainelSensores(frame) 
 
-def AbreFrameControladores(frame):
+def AbreFrameControladores(frame, tela):
 
-    painelControladores.PainelControladores(frame) 
+    painelControladores.PainelControladores(frame, tela) 
 
-def AbreFrameConexao(frame):
+def AbreFrameConexao(frame, tela):
 
-    painelConexao.PainelConexao(frame) 
+    painelConexao.PainelConexao(frame, tela) 
+
+# Abre telas de edição da conexão e controladores 
+def AbreEditorControlador(tela, controle):
+    
+    telaEditarControle.TelaEditarControle(tela, controle)

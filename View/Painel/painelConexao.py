@@ -3,7 +3,7 @@ from Controller import controleTelas
 from Controller import controleBanco
 
 
-def PainelConexao(frame):
+def PainelConexao(frame, tela):
 
     valSensores = []
     nnomeSensores = []
@@ -30,6 +30,6 @@ def PainelConexao(frame):
         variavel_1 = Label(frame,text = 'SENSOR'+ '  ' + valSensores[n][1] + '\n'+'CONTROLADOR ' + valSensores[n][2] + ' \n\n\n\n' ,foreground='black',anchor=N)
         variavel_1.place(x=valX,y=valY,width=200,height=200)
         
-        btn = Button(frame,text='EDITAR',foreground='white',bg='black',command=lambda:controleTelas.AbreTelaConAnAn(frame))
+        btn = Button(frame,text='EDITAR',foreground='white',bg='black',command=lambda:controleTelas.AbreTelaCadastro(tela))
         btn.place(x=valX+140,y=valY+165)
         valX+=300
