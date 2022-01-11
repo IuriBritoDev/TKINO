@@ -1,4 +1,5 @@
 from tkinter import *
+from Controller import controleBanco
 
 
 # Tela conexão digital com degital
@@ -19,8 +20,26 @@ def TelaConDigDig(tela):
     lblControlador = Label(telaCadastro,text='CONTROLADOR :',foreground='black',bg='gray',anchor=W,)
     lblControlador.place(x=220,y=30)
 
-    sensor = ['sen1','sen2','sen3']
-    controlador = ['con1','con2','con3']
+    valAtuador = controleBanco.ControleLerDados('*',1)
+
+    qtdSensores = len(valAtuador)
+    print('numero de atuadores')
+    print(qtdSensores)
+
+    sensor = []
+    controlador = []
+    
+    for n in range(0,qtdSensores):
+
+        # Se a conexão for sensor
+        if (valAtuador[n][2] == '1'):
+            if (valAtuador[n][3] == '1'):
+                sensor.append(valAtuador[n][1])
+
+        # Se a conexão for controlador
+        if (valAtuador[n][2] == '2'):
+            if (valAtuador[n][3] == '1'):
+                controlador.append(valAtuador[n][1])
 
     clickSensor = StringVar()
     clickSensor.set('SENSOR')
@@ -53,6 +72,18 @@ def TelaConDigDig(tela):
     controladorVal = OptionMenu(telaCadastro, clickValControlador,*valControlador)
     controladorVal.place(x=320,y=150,width=60,height=20)
 
+    def CriaConexao():
+        tb = 0
+        interog = '?,?,?,?'
+        valoresConex = [('1','1',)]
+        
+        voloresConexAtua = [(clickSensor.get(),clickControlador.get(),clickValSensor.get(),clickValControlador.get(),)]
+        
+        controleBanco.ControleCriaConexao(valoresConex)
+        controleBanco.ControleCriaConexAtuadores(tb,voloresConexAtua,interog)
+        
+        telaCadastro.destroy()
+
     # Botão de conexão
-    btnCnt = Button(telaCadastro,text='CONECTAR',command = '',foreground='white',bg='black')
+    btnCnt = Button(telaCadastro,text='CONECTAR',command = CriaConexao,foreground='white',bg='black')
     btnCnt.place(x=300,y=350)

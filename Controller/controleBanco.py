@@ -1,9 +1,5 @@
 from Model import banco
-from View.Painel import painelSensores
 
-
-# Conecta ao banco Bancos
-c = banco.ConexaoBanco('bancos.db')
 
 # Cria variavel para o nome dos projetos
 projetoAtual = " "
@@ -13,6 +9,7 @@ tabelas = ["projetos","atuador", "controlador", "valores", "conexao", "configura
 tabelasConexao = ["conDigDig","conAnaDig","conDigAna","conAnaAna"]
 
 # Tipo de colunas
+colunaUltimo = ['ultimo']
 colunaNome = ["Nome"]
 colunaContipo = ["conexao","tipo"]
 colunaDate = ["data","hora"]
@@ -25,6 +22,16 @@ colunaValor = ["valMinSen","valMaxSen","valMinCon","valMaxCon"]
 
 # Tipos de dados
 tipoDado = ["text", "integer"]
+
+# Conecta ao banco Bancos
+c = banco.ConexaoBanco('bancos.db')
+banco.CriaTabela(c, tabelas[0])
+banco.AlteraTabela(c, tabelas[0], colunaNome[0], tipoDado[0])
+
+listaUltimo = [(projetoAtual,)]
+banco.CriaTabela(c, colunaUltimo[0])
+banco.AlteraTabela(c, colunaUltimo[0], colunaUltimo[0], tipoDado[0])
+banco.EscreveNaTabela(c, colunaUltimo[0], colunaUltimo[0],listaUltimo,'?')
 
 # Cria um banco de dados
 def ControleCriaBanco(nomeBanco):
@@ -118,11 +125,16 @@ def ControleMostraExistente():
 # Abre projeto selecionado
 def ControleAbreProjeto(projeto):
 
+    inter = '?'
     global projetoAtual
     
     nomeProjeto = ''.join(projeto)
     projetoAtual = nomeProjeto
-    painelSensores.projetoAberto = True
+
+    lista = [(nomeProjeto,)]
+    banco.DeletaDados(c, colunaUltimo[0])
+    banco.EscreveNaTabela(c, colunaUltimo[0],colunaUltimo[0],lista,inter)
+    
    
 # Cria controladores 
 def ControleCriaAtuador(valorAtuador):
@@ -154,3 +166,36 @@ def ControleCriaConexao(valorAtuador):
     coluna = 'sensor,'+'controlador'
     
     banco.EscreveNaTabela(con, tabelas[4], coluna, valorAtuador, interog)
+
+def ControleCriaConexAtuadores(nTabela, valores, interog):
+
+    global projetoAtual
+    coluna = ' '
+    con = banco.ConexaoBanco(projetoAtual)
+
+    # Conexão digital digital 
+    if(nTabela == 0):
+
+        coluna = colunaSenCon[0]+','+colunaSenCon[1]+','+colunasConex[0]+','+colunasConex[1]
+
+    if(nTabela == 1):
+
+        coluna = colunaSenCon[0]+','+colunaSenCon[1]+','+colunasConex[0]+','+colunasConex[1]+','+colunaNomeVal[2]+','+colunaNomeVal[3]
+
+    if(nTabela == 2):
+
+        coluna = colunaSenCon[0]+','+colunaSenCon[1]+','+colunasConex[2]+','+colunasConex[3]
+    
+    if(nTabela == 3):
+
+        coluna = colunaSenCon[0]+','+colunaSenCon[1]+','+colunaOperador[0]+','+colunaValor[0]+','+colunaOperador[1]+','+colunaValor[1]+','+colunaOperador[2]+','+colunaValor[2]+','+colunaOperador[3]+','+colunaValor[3]
+    
+    banco.EscreveNaTabela(con, tabelasConexao[nTabela], coluna, valores, interog)
+
+if (projetoAtual == ' '):
+
+    dados = banco.LerTabela(c, colunaUltimo[0], colunaUltimo[0])
+    
+    if (dados[0] != ' '):
+       
+        ControleAbreProjeto(dados[0])

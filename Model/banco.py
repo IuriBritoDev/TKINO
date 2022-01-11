@@ -64,8 +64,12 @@ def AlteraTabela(conexao, nomeTabela,nomeColuna, tipo):
     except sqlite3.Error as ex:
         print(ex)
 
-# cria a conexão com o banco
-cursor = ConexaoBanco('bancos.db')
+# Deleta os dados de uma tabela
+def DeletaDados(conexao, tabela):
 
-# fecha o banco
-cursor.close() 
+    try:
+        c = conexao.cursor()
+        c.execute("DELETE FROM "+tabela+"")
+        conexao.commit()
+    except sqlite3.Error as ex:
+        print(ex)

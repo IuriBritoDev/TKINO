@@ -1,6 +1,5 @@
 from tkinter import *
-from Controller import controleTelas
-from Controller import controleBanco
+from Controller import controleTelas, controleBanco
 
 
 def PainelControladores(frame, tela):

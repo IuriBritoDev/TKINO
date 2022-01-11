@@ -51,7 +51,6 @@ def TelaConexao(tela):
        
         #controleBanco.ControleCriaConexao(valoresConex)
         
-
         # Digital 
         if (sensorConex == 1):
 

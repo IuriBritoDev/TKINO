@@ -27,6 +27,8 @@ def TelaNovoProjeto(tela):
     def pegaNome():
         nome = nomeNovo.get()
         controleBanco.ControleCriaBanco(nome)
+        nomeBanco = nome+'.db'
+        controleBanco.ControleAbreProjeto(nomeBanco)
         telaNovo.destroy()
         
     # Cria novo projeto
