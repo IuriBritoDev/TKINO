@@ -5,23 +5,23 @@ from Model import banco
 projetoAtual = " "
 
 # Tabelas do banco 
-tabelas = ["projetos","atuador", "controlador", "valores", "conexao", "configuracoes"]
-tabelasConexao = ["conDigDig","conAnaDig","conDigAna","conAnaAna"]
+tabelas = ['projetos','atuador', 'controlador', 'valores', 'conexao', 'configuracoes']
+tabelasConexao = ['conDigDig', 'conAnaDig', 'conDigAna', 'conAnaAna']
 
 # Tipo de colunas
 colunaUltimo = ['ultimo']
-colunaNome = ["Nome"]
-colunaContipo = ["conexao","tipo"]
-colunaDate = ["data","hora"]
-colunaSenCon =["sensor","controlador"]
-colunaPorta = ["porta","arduino"]
-colunaNomeVal = ["NomeControl","valor","valorMinimo","valorMaximo"]
-colunasConex = ["operaSensor","operaContro","controlOn","controlOff"]
-colunaOperador = ["operaMinSen","operaMaxSen","operaMinCon","operaMaxCon"]
-colunaValor = ["valMinSen","valMaxSen","valMinCon","valMaxCon"]
+colunaNome = ['Nome']
+colunaContipo = ['conexao', 'tipo']
+colunaDate = ['data', 'hora']
+colunaSenCon =['sensor', 'controlador']
+colunaPorta = ['porta']
+colunaNomeVal = ['NomeControl', 'valor', 'valorMinimo', 'valorMaximo']
+colunasConex = ['operaSensor', 'operaContro', 'controlOn', 'controlOff']
+colunaOperador = ['operaMinSen', 'operaMaxSen', 'operaMinCon', 'operaMaxCon']
+colunaValor = ['valMinSen', 'valMaxSen', 'valMinCon', 'valMaxCon']
 
 # Tipos de dados
-tipoDado = ["text", "integer"]
+tipoDado = ['text', 'integer']
 
 # Conecta ao banco Bancos
 c = banco.ConexaoBanco('bancos.db')
@@ -62,12 +62,12 @@ def ControleCriaTabelas(nomeProjeto):
         banco.CriaTabela(con, tabelas[n])
  
     banco.AlteraTabela(con, tabelas[1], colunaNome[0], tipoDado[0])
+    banco.AlteraTabela(con, tabelas[5], colunaPorta[0], tipoDado[0])
 
     for n in range(0,2):
         banco.AlteraTabela(con, tabelas[1], colunaContipo[n], tipoDado[0])
         banco.AlteraTabela(con, tabelas[3], colunaDate[n], tipoDado[0])
         banco.AlteraTabela(con, tabelas[4], colunaSenCon[n], tipoDado[0])
-        banco.AlteraTabela(con, tabelas[5], colunaPorta[n], tipoDado[0])
     
     for n in range(0,4):
         banco.AlteraTabela(con, tabelas[2], colunaNomeVal[n], tipoDado[0])
@@ -191,6 +191,17 @@ def ControleCriaConexAtuadores(nTabela, valores, interog):
         coluna = colunaSenCon[0]+','+colunaSenCon[1]+','+colunaOperador[0]+','+colunaValor[0]+','+colunaOperador[1]+','+colunaValor[1]+','+colunaOperador[2]+','+colunaValor[2]+','+colunaOperador[3]+','+colunaValor[3]
     
     banco.EscreveNaTabela(con, tabelasConexao[nTabela], coluna, valores, interog)
+
+def ControleEscreveNaTabela(valores, interog):
+
+    global projetoAtual
+    coluna = ' '
+
+    con = banco.ConexaoBanco(projetoAtual)
+    coluna = colunaPorta[0]
+    
+    banco.DeletaDados(con, tabelas[5])
+    banco.EscreveNaTabela(con, tabelas[5], coluna, valores, interog)
 
 if (projetoAtual == ' '):
 
