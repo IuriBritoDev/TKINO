@@ -73,3 +73,41 @@ def DeletaDados(conexao, tabela):
         conexao.commit()
     except sqlite3.Error as ex:
         print(ex)
+
+# Busca a primeira lina de uma tabela
+def BuscaPrimeirosDados(conexao, tabela):
+
+    resultado = " "
+    try:
+        c = conexao.cursor()
+        c.execute("SELECT * FROM "+tabela+" ORDER BY ROWID ASC LIMIT 1")
+        resultado = c.fetchall()
+
+    except sqlite3.Error as ex:
+        print(ex)
+    return resultado
+
+# Busca os ultimos dados de uma tabela
+def BuscaUltimosDados(conexao, tabela):
+
+    resultado = " "
+    try:
+        c = conexao.cursor()
+        c.execute("SELECT * FROM "+tabela+" WHERE ID = (SELECT MAX(ID)  FROM "+tabela+")")
+        resultado = c.fetchall()
+    except sqlite3.Error as ex:
+        print(ex)
+    return resultado
+
+# Busca os dados dentro de duas datas
+def BuscaDadosPorId(conexao, tabela, idI, idF):
+    
+    resultado = " "
+    try:
+        c = conexao.cursor()
+        c.execute("SELECT * FROM "+tabela+" where id between "+idI+" and "+idF+"")
+        resultado = c.fetchall()
+
+    except sqlite3.Error as ex:
+        print(ex)
+    return resultado

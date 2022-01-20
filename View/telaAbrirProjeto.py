@@ -31,7 +31,7 @@ def TelaAbrirProjeto(tela):
     caixaLista.configure(yscrollcommand=barraDeRoalgem.set)
 
     def AbrirProjeto():
-        #print(caixaLista.get(ACTIVE))
+        
         controleBanco.ControleAbreProjeto(caixaLista.get(ACTIVE))
         telaAbrir.destroy()
 

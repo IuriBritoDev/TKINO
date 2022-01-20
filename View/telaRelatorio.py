@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from Controller import controleBanco
 
 
 # Tela de relatorios em xlsx
@@ -14,72 +15,95 @@ def TelaRelatorio(tela):
     telaRelatorio.focus_force()
     telaRelatorio.grab_set()
 
+    listaI = controleBanco.BuscaPrimeiro(3)
+    listaF = controleBanco.BuscaUltimo(3)
+   
+    if(listaI == None):
+        
+        listaDiasI = ' '
+        listaDiasF = ' '
+    else:
+        listaDiasI = listaI
+        listaDiasF = listaF
+
     # Lables de data
-    lblDataI = Label(telaRelatorio,text='DATA DE INICIO',foreground='black',bg='gray',anchor=W,)
+    lblDataI = Label(telaRelatorio,text='DATA DE INICIO          '+listaDiasI,foreground='black',bg='gray',anchor=W,)
     lblDataI.place(x=20,y=30)
-    lblDataF = Label(telaRelatorio,text='DATA DE FIM',foreground='black',bg='gray',anchor=W,)
+    lblDataF = Label(telaRelatorio,text='DATA DE FIM           '+listaDiasF,foreground='black',bg='gray',anchor=W,)
     lblDataF.place(x=20,y=90)
-
-    # Caixas de datas
-    listaDias = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16']
-    listaMes = ['01','02','03','04','05','06','07','08','09','10','11','12']
-    listaAno = ['2019','2020','2021']
-
-    clickDiaI = StringVar()
-    clickDiaI.set('DIA')
-
-    clickMesI = StringVar()
-    clickMesI.set('MES')
-
-    clickAnoI = StringVar()
-    clickAnoI.set('ANO')
-
-    diai = OptionMenu(telaRelatorio,clickDiaI,*listaDias)
-    diai.place(x=150,y=30,width=60,height=30)
-    mesi = OptionMenu(telaRelatorio,clickMesI,*listaMes)
-    mesi.place(x=210,y=30,width=60,height=30)
-    anoi = OptionMenu(telaRelatorio,clickAnoI,*listaAno)
-    anoi.place(x=270,y=30,width=100,height=30)
-
-    # Caixa de data final
-    clickDiaF = StringVar()
-    clickDiaF.set('DIA')
-
-    clickMesF = StringVar()
-    clickMesF.set('MES')
-
-    clickAnoF = StringVar()
-    clickAnoF.set('ANO')
-
-    diaf = OptionMenu(telaRelatorio,clickDiaF,*listaDias)
-    diaf.place(x=150,y=90,width=60,height=30)
-    mesf = OptionMenu(telaRelatorio,clickMesF,*listaMes)
-    mesf.place(x=210,y=90,width=60,height=30)
-    anof = OptionMenu(telaRelatorio,clickAnoF,*listaAno)
-    anof.place(x=270,y=90,width=100,height=30)
-
-    # Botão buscar 
-    btn = Button(telaRelatorio,text='BUSCAR',command = '',foreground='white',bg='black')
-    btn.place(x=420,y=94)
     
+    # Pega as datas que foram digitadas e retorna uma tabela com os dados dentro da data
+    def PegaData():
+
+        idInicio = controleBanco.BuscaPrimeiro(2)
+        idFim = controleBanco.BuscaUltimo(2)
+        dadosSeparados = controleBanco.BuscaDadosPeloId(idInicio, idFim)
+      
+        return dadosSeparados
+
+    def Escreve():
+        
+        d = PegaData()
+        if(d != None):
+            controleBanco.EscreveNoExcel(d)
+        telaRelatorio.destroy()
+
     # Botão salver em excel
-    btn = Button(telaRelatorio,text='SALVAR EM EXCEL',command = '',foreground='white',bg='black')
+    btn = Button(telaRelatorio,text='SALVAR EM EXCEL',command = Escreve,foreground='white',bg='black')
     btn.place(x=370,y=440)
 
     # Formata a tabela 
     tabela = ttk.Treeview(telaRelatorio)
     tabela.place(x=10,y=165,width=465,height=230)
 
+    #ESCREVE OS DADOS NA TABELA
+    def EscreveNaTabela():
+    
+        dadosFormat = PegaData()
+        
+        if(dadosFormat != None):
+            for i in range(len(dadosFormat)):
+                tabela.insert(parent='',index='end',id=i,text="",values=(dadosFormat[i]))
+
     barraDeRoalgem = Scrollbar(telaRelatorio,orient='vertical',command='')
     barraDeRoalgem.place(x=465,y=165,width=15,height=230)
     tabela.configure(yscrollcommand=barraDeRoalgem.set)
 
-    tabela['column']=("col0","col1","col2","col3")
+    barraDeRoalgemH = Scrollbar(telaRelatorio,orient='horizontal',command='')
+    barraDeRoalgemH.place(x=10,y=394,width=470,height=15)
+    tabela.configure(xscrollcommand=barraDeRoalgemH.set)
+
+    dados = controleBanco.ControleLerDados('Nome', 1)
+    qtDados = len(dados)
+
+    teste = ()
+    teste = teste + ("col0","col1","col2",)
+ 
+    for n in range(0,qtDados):
+    
+        aux = str(n+3)
+        teste = teste + ("col"+aux,)
+
+    tabela['column'] = teste
 
     tabela.column("#0",width=0,minwidth=0)
     tabela.column('col0',width=96,anchor=W,minwidth=96)
     tabela.column('col1',width=96,anchor=W,minwidth=96)
+    tabela.column('col2',width=96,anchor=W,minwidth=96)
+
+    for i in range(0,qtDados):
+
+        aux = str(i+3)
+        tabela.column('col'+aux,width=50,anchor=W,minwidth=50)
 
     tabela.heading("#0",text="")
-    tabela.heading("col0",text="Data",anchor=W)
-    tabela.heading("col1",text="Hora",anchor=W)
+    tabela.heading("col0",text="ID",anchor=W)
+    tabela.heading("col1",text="Data",anchor=W)
+    tabela.heading("col2",text="Hora",anchor=W)
+
+    for i in range(0,qtDados):
+
+        aux2 = str(i+3)
+        tabela.heading('col'+aux2,text="VAR",anchor=W)
+        
+    EscreveNaTabela()

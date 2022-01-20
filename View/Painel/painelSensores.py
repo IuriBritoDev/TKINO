@@ -1,5 +1,5 @@
 from tkinter import *
-from Controller import controleBanco
+from Controller import controleBanco, controleGeraDados
 
 
 def PainelSensores(frame):
@@ -20,7 +20,9 @@ def PainelSensores(frame):
     clear_frame()
 
     pjtAtual = controleBanco.ControlePegaProjetoAtual()
+
     if (pjtAtual != ' '):
+        controleGeraDados.GeraDados()
         valSensores = controleBanco.ControleLerDados(col,1)
 
     qtdSensores = len(valSensores)

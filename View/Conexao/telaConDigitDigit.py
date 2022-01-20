@@ -23,8 +23,6 @@ def TelaConDigDig(tela):
     valAtuador = controleBanco.ControleLerDados('*',1)
 
     qtdSensores = len(valAtuador)
-    print('numero de atuadores')
-    print(qtdSensores)
 
     sensor = []
     controlador = []

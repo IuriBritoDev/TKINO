@@ -1,4 +1,5 @@
 from Model import banco
+import pandas as pd
 
 
 # Cria variavel para o nome dos projetos
@@ -145,6 +146,7 @@ def ControleCriaAtuador(valorAtuador):
     con = banco.ConexaoBanco(projetoAtual)
     coluna = 'nome,'+'conexao,'+'tipo'
     banco.EscreveNaTabela(con, tabelas[1], coluna, valorAtuador, interog)
+    banco.AlteraTabela(con, tabelas[3], valorAtuador[0][0], tipoDado[0])
 
 # Configura o controlador
 def ControleConfControlador(valorControlador):
@@ -202,6 +204,86 @@ def ControleEscreveNaTabela(valores, interog):
     
     banco.DeletaDados(con, tabelas[5])
     banco.EscreveNaTabela(con, tabelas[5], coluna, valores, interog)
+
+def EscreveNaTabelaValores(valores, qtdVal):
+
+    global projetoAtual
+    inter = '?,?'
+    interogacao = []
+    coluna = ' '
+
+    con = banco.ConexaoBanco(projetoAtual)
+
+    if(qtdVal != 0):
+        for n in range(0,qtdVal):
+            inter = inter+',?'
+
+    dados = banco.LerTabela(con, colunaNome[0], tabelas[1])
+    coluna = colunaDate[0]+','+colunaDate[1]
+
+    qtDados = len(dados)
+ 
+    if(qtDados != 0):
+
+        for n in range(0,qtDados):
+            coluna = coluna +','+ dados[n][0]
+            
+    banco.EscreveNaTabela(con, tabelas[3], coluna, valores, inter)
+
+def BuscaPrimeiro(val):
+
+    global projetoAtual
+
+    con = banco.ConexaoBanco(projetoAtual)
+    primeiro = banco.BuscaPrimeirosDados(con, tabelas[3])
+    
+    if(primeiro != []):
+
+        idPrimeiro = str(primeiro[0][0])
+        ano = str(primeiro[0][1])
+        
+        if(val == 2):
+            return idPrimeiro
+        if(val == 3):
+            return ano
+
+def BuscaUltimo(val):
+
+    global projetoAtual
+
+    con = banco.ConexaoBanco(projetoAtual)
+    ultimo = banco.BuscaUltimosDados(con, tabelas[3])
+   
+    if(ultimo != []):
+       
+        idUltimo = str(ultimo[0][0])
+        ano = str(ultimo[0][1])
+        
+        if(val == 2):
+            return idUltimo
+        if(val == 3):
+            return ano
+
+def BuscaDadosPeloId(dI, dF):
+
+    global projetoAtual
+
+    con = banco.ConexaoBanco(projetoAtual)
+    
+    if(dI != None and dF != None):
+
+        dadosData = banco.BuscaDadosPorId(con, tabelas[3], dI, dF)
+        return dadosData
+
+def EscreveNoExcel(lista):
+
+    dados = pd.DataFrame(data=lista)
+    
+    inicio = str(BuscaPrimeiro(3))
+    fim = str(BuscaUltimo(3))
+    nomeExcel = inicio+'_'+fim+'.xlsx'
+ 
+    dados.to_excel(nomeExcel) 
 
 if (projetoAtual == ' '):
 
