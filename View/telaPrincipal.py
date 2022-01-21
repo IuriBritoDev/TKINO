@@ -1,6 +1,6 @@
 from tkinter import * 
 from tkinter import ttk
-from Controller import controleTelas, controleCriaTelas
+from Controller import controleTelas, controleCriaTelas, controleBanco
 
 
 # Tela principal do projeto
@@ -33,6 +33,23 @@ def TelaPrincipal():
     
     abas.place(relx=0,rely=0.1,relwidth=1,relheight=1)
 
+    def VeProjeto():
+
+        pjtAtual = controleBanco.ControlePegaProjetoAtual()
+      
+        if (pjtAtual == ' '):
+        
+            sistema.entryconfig("RELATORIO", state="disabled") 
+            sistema.entryconfig("CONFIGURAÇÕES", state="disabled") 
+            atuadores.entryconfig("CADASTRO", state="disabled")
+            atuadores.entryconfig("CONEXÃO", state="disabled")
+        else:
+            
+            sistema.entryconfig("RELATORIO", state="normal") 
+            sistema.entryconfig("CONFIGURAÇÕES", state="normal") 
+            atuadores.entryconfig("CADASTRO", state="normal")
+            atuadores.entryconfig("CONEXÃO", state="normal")
+
     def Reload():
     
         # Mostra os sensores
@@ -42,6 +59,7 @@ def TelaPrincipal():
         # Mostra as conexões
         controleTelas.AbreFrameConexao(aba3,root)
         
+        VeProjeto()
         root.after(4000,Reload)
 
     # Cria a barra de menus
