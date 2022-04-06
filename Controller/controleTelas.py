@@ -1,4 +1,4 @@
-from View import telaRelatorio, telaNovoProjeto, telaAbrirProjeto, telaCadastro, telaConfigura, telaConexao, telaEditarControle
+from View import telaRelatorio, telaNovoProjeto, telaAbrirProjeto, telaCadastro, telaConfigura, telaConexao, telaEditarControle, telaPopUp
 from View.Painel import painelSensores, painelControladores, painelConexao
 from View.Conexao import telaConAnalogAnalog, telaConAnalogDigit, telaConDigitAnalog, telaConDigitDigit 
 
@@ -62,3 +62,8 @@ def AbreFrameConexao(frame, tela):
 def AbreEditorControlador(tela, controle):
     
     telaEditarControle.TelaEditarControle(tela, controle)
+
+# Abre telas de PopUP
+def AbrePopUp(tela, mensagem):
+    
+    telaPopUp.TelaPopUp(tela, mensagem)

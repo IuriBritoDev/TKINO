@@ -1,5 +1,5 @@
 from tkinter import *
-from Controller import controleBanco
+from Controller import controleBanco, controleTelas
 
 
 global nomeNovo
@@ -29,6 +29,7 @@ def TelaNovoProjeto(tela):
         controleBanco.ControleCriaBanco(nome)
         nomeBanco = nome+'.db'
         controleBanco.ControleAbreProjeto(nomeBanco)
+        controleTelas.AbrePopUp(tela,'Novo projeto criado')
         telaNovo.destroy()
         
     # Cria novo projeto

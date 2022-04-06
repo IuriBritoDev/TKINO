@@ -33,12 +33,20 @@ def PainelControladores(frame, tela):
             variavel_1.place(x=valX,y=valY,width=200,height=200)
 
             if (valControladores[n][3] == '1'):
+
                 btnLigar = Button(frame,text='LIGAR',foreground='white',bg='black',command=lambda:controleTelas.AbreTelaCadastro(tela))
                 btnLigar.place(x=valX+20,y=valY+165)
+
                 btnDesligar = Button(frame,text='DESLIGAR',foreground='white',bg='black',command=lambda:controleTelas.AbreTelaCadastro(tela))
                 btnDesligar.place(x=valX+120,y=valY+165)
+
             if (valControladores[n][3] == '2'):
+
                 cont = valControladores[n][3]
+
+                variavel_1 = Label(frame,text = cont,foreground='black',anchor=N)
+                variavel_1.place(x=valX,y=valY,width=200,height=200)
+
                 btn = Button(frame,text='EDITAR',foreground='white',bg='black',command=lambda:controleTelas.AbreEditorControlador(tela,cont))
                 btn.place(x=valX+140,y=valY+165)
             

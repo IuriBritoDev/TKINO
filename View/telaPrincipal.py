@@ -36,6 +36,12 @@ def TelaPrincipal():
     def VeProjeto():
 
         pjtAtual = controleBanco.ControlePegaProjetoAtual()
+
+        size = len(pjtAtual)
+        nomeProjetoAtual = pjtAtual[:size - 3]
+        
+        variavel1 = Label(root,text='PROJETO:  ' + nomeProjetoAtual,foreground='black',anchor=N,width=8,font=20)
+        variavel1.place(x=10,y=30,width=200,height=30)
       
         if (pjtAtual == ' '):
         

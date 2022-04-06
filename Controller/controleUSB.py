@@ -1,4 +1,5 @@
 import serial.tools.list_ports
+from Controller import controleSerial
 
 
 def BuscaPortas():
@@ -9,5 +10,6 @@ def BuscaPortas():
 def ConectaPortaUSB(connectPort):
 
     ser = serial.Serial(connectPort, baudrate = 9600, timeout = 1)
-    return ser
+    
+    controleSerial.ser = ser
    

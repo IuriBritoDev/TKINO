@@ -194,6 +194,15 @@ def ControleCriaConexAtuadores(nTabela, valores, interog):
     
     banco.EscreveNaTabela(con, tabelasConexao[nTabela], coluna, valores, interog)
 
+
+# Busca os ultimos dados de uma tabela
+def ControlebuscaUltimosDados(nTabela):
+    global projetoAtual
+    
+    con = banco.ConexaoBanco(projetoAtual)
+    dados = banco.BuscaUltimosDados(con, tabelas[nTabela])
+    return dados
+    
 def ControleEscreveNaTabela(valores, interog):
 
     global projetoAtual

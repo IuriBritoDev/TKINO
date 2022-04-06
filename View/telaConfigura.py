@@ -1,5 +1,5 @@
 from tkinter import *
-from Controller import controleUSB, controleBanco
+from Controller import controleUSB, controleBanco, controleTelas
 
 
 # Tela de configurações de Arduino e USP
@@ -49,6 +49,7 @@ def TelaConfigura(tela):
         valoresPorta = [(commPort,)]
         controleUSB.ConectaPortaUSB(commPort)
         controleBanco.ControleEscreveNaTabela(valoresPorta, interog)
+        controleTelas.AbrePopUp(tela,'Conexão feita')
         telaConfig.destroy()
 
     # Botão de conexão
