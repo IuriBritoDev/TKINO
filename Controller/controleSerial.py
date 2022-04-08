@@ -6,10 +6,27 @@ from Controller import controleUSB, controleBanco
 from datetime import date
 import time
 
+
 ser = ' '
+valorEnviado = '0'
+
+def Input(valorBinario):
+    global ser
+    global valorEnviado
+
+    if(valorBinario == 'A'):
+        valorEnviado = '1'
+
+    if(valorBinario == 'B'):
+        valorEnviado = '0'
+
+    ser.write(valorBinario.encode())
 
 def EscreveBanco(valEscrever):
 
+    global valorEnviado
+    col = '*'
+    
     Data = date.today() 
     Hora = time.strftime('%H:%M:%S', time.localtime())
     
@@ -17,10 +34,11 @@ def EscreveBanco(valEscrever):
     teste = teste + (Data,)
     teste = teste + (Hora,)
 
-    dados = controleBanco.ControleLerDados('Nome', 1)
+    nomeDados = controleBanco.ControleLerDados('Nome', 1)
+    dados = controleBanco.ControleLerDados(col,1)
     
     valorStr = str(valEscrever)
-    qtDados = len(dados)
+    qtDados = len(nomeDados)
     tupla = []
 
     size = len(valorStr)
@@ -29,8 +47,14 @@ def EscreveBanco(valEscrever):
     if(qtDados != 0):
         
         for n in range(0,qtDados):
-                
-            teste = teste +(final_str,)
+
+            if(dados[n][2] == '1'):
+                #print('--------------')
+                #print(dados[0][n])
+                teste = teste +(final_str,)
+            else:
+                teste = teste +(valorEnviado,)
+            #teste = teste +(final_str,)
         
         tupla = [teste,]
 

@@ -56,7 +56,7 @@ def TelaConAnalogAnalog(tela):
     lblControlador = Label(telaCadastro,text='SENSOR :                                   ->  CONTOLADOR',foreground='black',bg='gray',anchor=W,)
     lblControlador.place(x=20,y=230)
 
-    operadores = ['=','>=','<=']
+    operadores = ['=','>','<','>=','<=']
 
     clickOperador1 = StringVar()
     clickOperador1.set('-')
